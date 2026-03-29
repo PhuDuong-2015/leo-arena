@@ -1,0 +1,181 @@
+/* BIẾN GLOBAL - Đồng bộ với phong cách Black & Neon Blue */
+:root {
+    --black: #050505;
+    --dark-surface: rgba(10, 10, 10, 0.9);
+    --neon-blue: #00f3ff;
+    --neon-glow: rgba(0, 243, 255, 0.4);
+    --gold: #ffd700; /* Thêm màu vàng điểm xuyết cho các chi tiết quan trọng */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--black);
+    font-family: 'Rajdhani', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Lớp nền overlay cho toàn trang */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('background.png');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+/* CONTAINER THẺ CYBER */
+.card-container {
+    background: var(--dark-surface);
+    padding: 45px;
+    border: 2px solid var(--neon-blue);
+    box-shadow: 0 0 30px var(--neon-glow);
+    border-radius: 0px 30px 0px 30px; /* Cắt góc kiểu thể thao/tương lai */
+    width: 100%;
+    max-width: 420px;
+    position: relative;
+    backdrop-filter: blur(15px);
+    z-index: 1;
+    animation: slideIn 0.8s ease-out;
+}
+
+.title {
+    font-family: 'Orbitron', sans-serif;
+    color: white;
+    text-align: center;
+    letter-spacing: 4px;
+    font-size: 26px;
+    font-weight: 900;
+    margin-bottom: 35px;
+    text-transform: uppercase;
+}
+
+.neon {
+    color: var(--neon-blue);
+    text-shadow: 0 0 15px var(--neon-blue);
+}
+
+/* INPUT BOX PHONG CÁCH HI-TECH */
+.input-box {
+    position: relative;
+    margin-bottom: 35px;
+}
+
+.input-box input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #333;
+    padding: 12px 0;
+    color: white;
+    outline: none;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.input-box label {
+    position: absolute;
+    top: 12px;
+    left: 0;
+    color: #666;
+    transition: 0.3s;
+    pointer-events: none;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.input-box input:focus ~ label,
+.input-box input:valid ~ label,
+.input-box input:not(:placeholder-shown) ~ label {
+    top: -22px;
+    font-size: 11px;
+    color: var(--neon-blue);
+    letter-spacing: 1px;
+}
+
+.input-box input:focus {
+    border-bottom: 2px solid var(--neon-blue);
+}
+
+/* NÚT BẤM KICK-OFF / CONFIRM */
+.btn-neon {
+    width: 100%;
+    padding: 18px;
+    background: var(--neon-blue);
+    border: none;
+    color: black;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.4s;
+    box-shadow: 0 0 15px var(--neon-glow);
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+    font-size: 15px;
+    letter-spacing: 2px;
+}
+
+.btn-neon:hover {
+    background: white;
+    transform: translateY(-3px);
+    box-shadow: 0 0 25px var(--neon-blue);
+}
+
+/* HIỆU ỨNG LOADER CHO MẬT KHẨU */
+#pass-loader {
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(to right, var(--neon-blue), #fff);
+    margin-top: 8px;
+    transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 10px var(--neon-blue);
+}
+
+/* TIỆN ÍCH HỖ TRỢ */
+.hidden { display: none; }
+
+.change-form {
+    text-align: center;
+    color: #888;
+    font-size: 13px;
+    margin-top: 25px;
+}
+
+.change-form a {
+    color: var(--neon-blue);
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.change-form a:hover {
+    text-decoration: underline;
+    text-shadow: 0 0 8px var(--neon-blue);
+}
+
+/* ANIMATION */
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+    .card-container {
+        width: 90%;
+        padding: 30px;
+    }
+}

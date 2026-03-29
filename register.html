@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEW RECRUIT | LEO KIDS ACADEMY</title>
+    
+    <script src="languages.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --neon: #00f3ff;
+            --neon-glow: rgba(0, 243, 255, 0.4);
+            --gold: #ffd700;
+            --black: #050505;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--black);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)), url('background.png');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+
+        /* NÚT CHUYỂN NGÔN NGỮ */
+        .lang-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+            background: rgba(0,0,0,0.7);
+            border: 1px solid var(--neon);
+            color: var(--neon);
+            padding: 8px 12px;
+            font-family: 'Orbitron';
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            clip-path: polygon(0 0, 100% 0, 100% 70%, 80% 100%, 0 100%);
+        }
+        .lang-switcher:hover { background: var(--neon); color: black; box-shadow: 0 0 15px var(--neon); }
+
+        .logo-header { padding: 40px 0 20px; text-align: center; }
+        .logo-header img { width: 100px; filter: drop-shadow(0 0 15px var(--neon)); }
+
+        .register-wrapper {
+            width: 100%;
+            max-width: 480px;
+            padding: 20px;
+            z-index: 1;
+        }
+
+        .cyber-card {
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid var(--neon);
+            box-shadow: 0 0 25px var(--neon-glow);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(15px);
+            text-align: center;
+        }
+
+        .sys-info {
+            font-family: 'Orbitron';
+            color: var(--neon);
+            font-size: 11px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .form-title {
+            font-family: 'Orbitron';
+            font-weight: 900;
+            font-size: 24px;
+            letter-spacing: 2px;
+            margin-bottom: 35px;
+            text-transform: uppercase;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px; top: 15px;
+            color: var(--neon);
+            z-index: 2;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 14px 15px 14px 45px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: white;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+            position: relative;
+            appearance: none;
+        }
+
+        .input-group select option { background-color: #0a0a0a; color: white; }
+
+        .input-group label {
+            position: absolute;
+            left: 45px; top: 15px;
+            color: #777;
+            font-size: 13px;
+            transition: 0.3s;
+            pointer-events: none;
+        }
+
+        .input-group input:focus ~ label,
+        .input-group input:not(:placeholder-shown) ~ label,
+        .input-group select:focus ~ label,
+        .input-group select:valid ~ label {
+            top: -20px; left: 5px;
+            font-size: 11px;
+            color: var(--neon);
+            font-weight: bold;
+        }
+
+        .select-arrow {
+            position: absolute;
+            right: 15px; top: 18px;
+            color: var(--neon);
+            font-size: 10px;
+            pointer-events: none;
+        }
+
+        .btn-confirm {
+            width: 100%;
+            padding: 18px;
+            background: var(--neon);
+            color: black;
+            font-family: 'Orbitron';
+            font-weight: 900;
+            border: none;
+            cursor: pointer;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+            transition: 0.3s;
+            font-size: 14px;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        .btn-confirm:hover {
+            background: white;
+            box-shadow: 0 0 20px var(--neon);
+            transform: translateY(-2px);
+        }
+
+        .back-nav { margin-top: 25px; font-size: 13px; color: #888; }
+        .back-nav a { color: var(--neon); text-decoration: none; font-weight: bold; }
+
+        .info-footer {
+            width: 100%;
+            max-width: 1000px;
+            margin-top: auto;
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .info-card {
+            background: rgba(255,255,255,0.03);
+            padding: 15px 25px;
+            border-left: 3px solid var(--neon);
+            min-width: 250px;
+        }
+
+        .info-card h4 { color: var(--gold); font-family: 'Orbitron'; font-size: 12px; margin-bottom: 5px; }
+        .info-card p { color: #888; font-size: 12px; margin: 0; }
+    </style>
+</head>
+<body>
+
+    <button onclick="changeLanguage()" class="lang-switcher" data-i18n="lang_btn">EN</button>
+
+    <div class="logo-header">
+        <img src="logo.png" alt="LEO FC LOGO">
+    </div>
+
+    <div class="register-wrapper">
+        <div class="cyber-card">
+            <p class="sys-info" data-i18n="sys_label">Hệ thống quản trị cầu thủ</p>
+            <h2 class="form-title">NEW <span style="color:var(--neon)">RECRUIT</span></h2>
+
+            <form id="regForm" onsubmit="handleReg(event)">
+                <div class="input-group">
+                    <i class="fas fa-user-ninja"></i>
+                    <input type="text" id="kid-name" required placeholder=" ">
+                    <label data-i18n="label_name">Tên cầu thủ nhí</label>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-phone"></i>
+                    <input type="tel" id="parent-phone" required placeholder=" ">
+                    <label data-i18n="label_phone">SĐT Phụ huynh</label>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-clock"></i>
+                    <select id="time-slot" required>
+                        <option value="" disabled selected></option>
+                        <option value="Sáng" data-i18n="opt_morning">Sáng (07:30 - 09:00)</option>
+                        <option value="Chiều" data-i18n="opt_afternoon">Chiều (16:30 - 18:00)</option>
+                    </select>
+                    <label data-i18n="label_time">Chọn khung giờ tập</label>
+                    <span class="select-arrow">▼</span>
+                </div>
+
+                <button type="submit" class="btn-confirm" data-i18n="btn_confirm">Confirm Squad</button>
+            </form>
+
+            <div class="back-nav">
+                <span data-i18n="has_account">Đã có tài khoản?</span> 
+                <a href="index.html" data-i18n="login_now">ĐĂNG NHẬP NGAY</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-footer">
+        <div class="info-card">
+            <h4 data-i18n="footer_location_title">ĐỊA ĐIỂM SÂN TẬP</h4>
+            <p data-i18n="footer_location_desc">Sân Thanh Niên - Gò Vấp, TPHCM</p>
+        </div>
+        <div class="info-card">
+            <h4 data-i18n="footer_contact_title">LIÊN HỆ COACH OLA</h4>
+            <p>Zalo: 0708 828 199</p>
+        </div>
+    </div>
+
+    <script>
+        function handleReg(e) {
+            e.preventDefault();
+            const name = document.getElementById('kid-name').value;
+            const phone = document.getElementById('parent-phone').value;
+            const lang = localStorage.getItem('lang') || 'vi'; // Lấy ngôn ngữ hiện tại
+            
+            if(name && phone) {
+                // Lưu trạng thái đăng nhập giả lập để vào được home.html
+                sessionStorage.setItem('isRegistered', 'true');
+                sessionStorage.setItem('playerName', name);
+                
+                // Hiển thị thông báo dựa trên ngôn ngữ đã chọn
+                const msg = lang === 'vi' 
+                    ? `CHÀO MỪNG TÂN BINH: ${name.toUpperCase()}!\nHồ sơ đã gửi tới Coach Ola. Đang chuyển hướng...`
+                    : `WELCOME RECRUIT: ${name.toUpperCase()}!\nProfile sent to Coach Ola. Redirecting...`;
+                
+                alert(msg);
+                window.location.href = 'home.html';
+            } else {
+                const errorMsg = lang === 'vi' ? "VUI LÒNG ĐIỀN ĐỦ THÔNG TIN!" : "PLEASE FILL ALL INFO!";
+                alert(errorMsg);
+            }
+        }
+    </script>
+</body>
+</html>

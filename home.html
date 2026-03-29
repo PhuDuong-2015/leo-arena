@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARENA DASHBOARD | LEO FOOTBALL</title>
+    
+    <script src="languages.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --neon: #00f3ff;
+            --neon-glow: rgba(0, 243, 255, 0.4);
+            --gold: #ffd700;
+            --black: #050505;
+            --dark-card: rgba(15, 15, 15, 0.9);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--black);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), url('stadium_bg.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+
+        nav {
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 100;
+        }
+
+        .logo h2 { font-family: 'Orbitron'; font-size: 1.4rem; letter-spacing: 2px; }
+        
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+
+        .btn-lang {
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--neon);
+            color: var(--neon);
+            padding: 5px 10px;
+            cursor: pointer;
+            font-family: 'Orbitron';
+            font-size: 12px;
+            transition: 0.3s;
+            border-radius: 4px;
+        }
+        .btn-lang:hover { background: var(--neon); color: black; box-shadow: 0 0 10px var(--neon); }
+
+        .user-profile { display: flex; align-items: center; gap: 15px; }
+        .user-profile i { color: var(--neon); font-size: 24px; filter: drop-shadow(0 0 5px var(--neon)); }
+        .player-name { font-family: 'Orbitron'; color: var(--neon); letter-spacing: 1px; font-weight: bold; }
+
+        .btn-logout {
+            background: none; border: 1px solid #ff4444; color: #ff4444;
+            padding: 5px 12px; cursor: pointer;
+            font-family: 'Orbitron'; font-size: 11px; transition: 0.3s;
+        }
+        .btn-logout:hover { background: #ff4444; color: white; }
+
+        .hero {
+            padding: 80px 5% 40px;
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron';
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px var(--neon-glow);
+        }
+
+        .hero p { color: #aaa; font-size: 1.2rem; max-width: 800px; margin: 0 auto 40px; }
+
+        .training-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 8% 80px;
+        }
+
+        .training-card {
+            background: var(--dark-card);
+            border: 1px solid #222;
+            padding: 40px;
+            position: relative;
+            transition: 0.4s;
+            overflow: hidden;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
+            backdrop-filter: blur(10px);
+        }
+
+        .training-card:hover {
+            border-color: var(--neon);
+            transform: translateY(-10px);
+            box-shadow: 0 0 25px var(--neon-glow);
+        }
+
+        .training-card i {
+            font-size: 45px;
+            color: var(--neon);
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .training-card h3 {
+            font-family: 'Orbitron';
+            margin-bottom: 20px;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+
+        .training-card ul {
+            list-style: none;
+            color: #ccc;
+            font-size: 1rem;
+            line-height: 2;
+        }
+
+        .training-card ul li i { font-size: 12px; margin-right: 10px; color: var(--neon); }
+
+        .coach-banner {
+            background: linear-gradient(90deg, rgba(0, 243, 255, 0.1), transparent);
+            margin: 40px 8% 100px;
+            padding: 50px;
+            border-left: 5px solid var(--neon);
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            border-radius: 0 15px 15px 0;
+            backdrop-filter: blur(5px);
+        }
+
+        .coach-img-wrapper {
+            width: 140px; height: 140px;
+            border-radius: 50%;
+            border: 3px solid var(--neon);
+            overflow: hidden;
+            box-shadow: 0 0 20px var(--neon-glow);
+            flex-shrink: 0;
+        }
+
+        .coach-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+
+        .coach-info h2 { font-family: 'Orbitron'; margin-bottom: 10px; color: var(--gold); font-size: 24px; }
+        .coach-info p { color: #ddd; font-style: italic; font-size: 1.1rem; line-height: 1.6; }
+
+        .btn-action {
+            margin-top: 30px;
+            padding: 18px 45px;
+            background: var(--neon);
+            color: black;
+            font-family: 'Orbitron';
+            font-weight: 900;
+            text-decoration: none;
+            display: inline-block;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .btn-action:hover { background: white; box-shadow: 0 0 25px white; transform: scale(1.05); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div class="bg-overlay"></div>
+
+    <nav>
+        <div class="logo">
+            <h2>LEO <span style="color:var(--neon)">ARENA</span></h2>
+        </div>
+        
+        <div class="nav-right">
+            <button class="btn-lang" data-i18n="lang_btn" onclick="changeLanguage()">EN</button>
+
+            <div class="user-profile">
+                <i class="fas fa-user-circle"></i>
+                <span class="player-name" id="display-name">PLAYER_NAME</span>
+            </div>
+            <button class="btn-logout" data-i18n="logout" onclick="logout()">LOGOUT</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <p style="font-family:'Orbitron'; font-size: 12px; letter-spacing: 5px; color: var(--neon); margin-bottom: 10px;">PRO FOOTBALL ACADEMY</p>
+        <h1 data-i18n="hero_h1">LEVEL UP YOUR SKILLS</h1>
+        <p data-i18n="hero_p">Chào mừng bạn đến với học viện LEO. Nơi rèn luyện những chiến binh sân cỏ thực thụ qua hệ thống bài tập đẳng cấp quốc tế.</p>
+        <a href="#training" class="btn-action" data-i18n="btn_kickoff">KHÁM PHÁ NGAY</a>
+    </section>
+
+    <section class="training-grid" id="training">
+        <div class="training-card">
+            <i class="fas fa-bolt"></i>
+            <h3 data-i18n="skill_h">KỸ THUẬT THƯỢNG THỪA</h3>
+            <ul>
+                <li><i class="fas fa-caret-right"></i> Mastery Drills</li>
+                <li><i class="fas fa-caret-right"></i> Ball Control</li>
+                <li><i class="fas fa-caret-right"></i> Accuracy</li>
+            </ul>
+        </div>
+
+        <div class="training-card">
+            <i class="fas fa-language"></i>
+            <h3 data-i18n="eng_h">ENGLISH FOR FOOTBALL</h3>
+            <ul>
+                <li><i class="fas fa-caret-right"></i> International Terms</li>
+                <li><i class="fas fa-caret-right"></i> Tactical Communication</li>
+                <li><i class="fas fa-caret-right"></i> Pro Environment</li>
+            </ul>
+        </div>
+
+        <div class="training-card">
+            <i class="fas fa-users"></i>
+            <h3 data-i18n="team_h">THỂ LỰC & ĐỒNG ĐỘI</h3>
+            <ul>
+                <li><i class="fas fa-caret-right"></i> Speed & Stamina</li>
+                <li><i class="fas fa-caret-right"></i> Team Spirit</li>
+                <li><i class="fas fa-caret-right"></i> Strategic Thinking</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="coach-banner">
+        <div class="coach-img-wrapper">
+             <img src="Coach.png" alt="Coach Ola">
+        </div>
+        <div class="coach-info">
+            <h2 data-i18n="coach_h">EXPERIENCED COACH OLA</h2>
+            <p data-i18n="coach_p">"Dẫn dắt bởi Coach Ola - Huấn luyện viên chuyên nghiệp với nhiều năm kinh nghiệm đào tạo lứa trẻ. Ông sẽ tận tâm rèn luyện từng bước chạy và nhịp bóng của các học viên ARENA."</p>
+        </div>
+    </section>
+
+    <script>
+        // Hiển thị tên người dùng
+        const name = sessionStorage.getItem('playerName') || 'RECRUIT';
+        document.getElementById('display-name').innerText = name.toUpperCase();
+
+        function logout() {
+            const lang = localStorage.getItem('lang') || 'vi';
+            const confirmMsg = lang === 'vi' 
+                ? "Bạn có chắc muốn rời khỏi hệ thống ARENA?" 
+                : "Are you sure you want to leave the ARENA system?";
+            
+            if(confirm(confirmMsg)) {
+                sessionStorage.clear();
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Kiểm tra bảo mật (Phải đăng nhập mới vào được)
+        if(!sessionStorage.getItem('isRegistered')) {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
